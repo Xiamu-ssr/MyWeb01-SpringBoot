@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 @Data
-@TableName("my_imagestext")
+@TableName("my_imagetext")
 public class MyImagetext {
     private String id;
     private String title;

@@ -3,6 +3,8 @@ package com.ruoyi.myweb.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.ruoyi.common.utils.uuid.UUID;
 import com.ruoyi.myweb.domain.MyImages;
+import com.ruoyi.myweb.domain.MyImagetext;
+import com.ruoyi.myweb.dto.DataMgtSearchDto;
 import com.ruoyi.myweb.mapper.MyImagesMapper;
 import com.ruoyi.myweb.mapper.MyImagetextMapper;
 import com.ruoyi.myweb.service.IMyDataMgtService;
@@ -11,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Date;
+import java.util.*;
 import java.io.File;
 import java.sql.Timestamp;
 
@@ -61,5 +63,61 @@ public class MyDataMgtServiceImpl implements IMyDataMgtService{
         File file = new File(picDir + name);
         file.delete();
         return null;
+    }
+
+    @Override
+    public int createImageText(Map<String, String> params) {
+        MyImagetext myImagetext = new MyImagetext();
+        myImagetext.setId(params.get("id"));
+        myImagetext.setTitle(params.get("title"));
+        myImagetext.setText(params.get("text"));
+        myImagetext.setPlace(params.get("place"));
+        myImagetext.setCreateTime(new Date());
+
+        return myImagetextMapper.insert(myImagetext);
+    }
+
+    @Override
+    public int cancelImageText(String id) {
+        LambdaQueryWrapper<MyImagetext> myImagetextWrapper = new LambdaQueryWrapper<>();
+        LambdaQueryWrapper<MyImages> myImagesWrapper = new LambdaQueryWrapper<>();
+        myImagetextWrapper.eq(MyImagetext::getId, id);
+        myImagesWrapper.eq(MyImages::getMasterId, id);
+
+        myImagetextMapper.delete(myImagetextWrapper);
+        myImagesMapper.delete(myImagesWrapper);
+
+        return 0;
+    }
+
+    @Override
+    public List<Map<String, String>> getList(DataMgtSearchDto dto) {
+        System.out.println(dto);
+        List<Map<String, String>> res = new ArrayList<>();
+        LambdaQueryWrapper<MyImagetext> wrapper = new LambdaQueryWrapper<>();
+        if (!dto.getPlace().isEmpty()){
+            wrapper.in(MyImagetext::getPlace, dto.getPlace());
+        }
+        if (dto.getDate() != null){
+            wrapper.between(MyImagetext::getCreateTime, dto.getDate().get(0), dto.getDate().get(1));
+        }
+        if (dto.getTitle() != null){
+            wrapper.like(MyImagetext::getTitle, dto.getTitle());
+        }
+        if (dto.getText() != null){
+            wrapper.like(MyImagetext::getText, dto.getText());
+        }
+        List<MyImagetext> list = myImagetextMapper.selectList(wrapper);
+        list.forEach(l->{
+            Map<String, String> tmp = new HashMap<>();
+            tmp.put("id", l.getId());
+            tmp.put("place", l.getPlace());
+            tmp.put("date", l.getCreateTime().toString());
+            tmp.put("title", l.getTitle());
+            res.add(tmp);
+            System.out.println(tmp);
+        });
+
+        return res;
     }
 }
