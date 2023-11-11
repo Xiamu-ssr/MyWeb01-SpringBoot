@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.ruoyi.common.utils.uuid.UUID;
 import com.ruoyi.myweb.domain.MyImages;
 import com.ruoyi.myweb.domain.MyImagetext;
+import com.ruoyi.myweb.dto.DataMgtOneInfoDto;
 import com.ruoyi.myweb.dto.DataMgtSearchDto;
 import com.ruoyi.myweb.mapper.MyImagesMapper;
 import com.ruoyi.myweb.mapper.MyImagetextMapper;
@@ -117,6 +118,26 @@ public class MyDataMgtServiceImpl implements IMyDataMgtService{
             res.add(tmp);
             System.out.println(tmp);
         });
+
+        return res;
+    }
+
+    @Override
+    public DataMgtOneInfoDto getImageTextById(String id) {
+        LambdaQueryWrapper<MyImagetext> wrapper1 = new LambdaQueryWrapper<>();
+        LambdaQueryWrapper<MyImages> wrapper2 = new LambdaQueryWrapper<>();
+        wrapper1.eq(MyImagetext::getId, id);
+        MyImagetext myImagetext = myImagetextMapper.selectOne(wrapper1);
+        wrapper2.eq(MyImages::getMasterId, id);
+        List<MyImages> myImages = myImagesMapper.selectList(wrapper2);
+
+        DataMgtOneInfoDto res = new DataMgtOneInfoDto();
+        res.setId(myImagetext.getId());
+        res.setTitle(myImagetext.getTitle());
+        res.setText(myImagetext.getText());
+        res.setPlace(myImagetext.getPlace());
+        res.setCreateTime(myImagetext.getCreateTime());
+        res.setImages(myImages);
 
         return res;
     }

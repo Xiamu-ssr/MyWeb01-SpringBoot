@@ -15,29 +15,63 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.Map;
 
+/**
+ * 数据管理控制器
+ *
+ * @author mumu
+ * @date 2023/11/11
+ */
 @RestController
 @RequestMapping("/DataMgt")
 public class DataMgtController extends BaseController {
 
+    /**
+     * 我数据管理服务
+     */
     @Autowired
     private IMyDataMgtService myDataMgtService;
 
+    /**
+     * 创造
+     *
+     * @return {@link AjaxResult}
+     */
     @PostMapping("/getId")
     public AjaxResult create() {
         return success(myDataMgtService.getId());
     }
 
+    /**
+     * 上传图片
+     *
+     * @param file 文件
+     * @param id   id
+     * @return {@link AjaxResult}
+     * @throws IOException IOException
+     */
     @PostMapping("/uploadPic")
     public AjaxResult uploadPic(MultipartFile file, String id) throws IOException {
         return success(myDataMgtService.insertOnePic(file,id));
     }
 
+    /**
+     * 删除图片
+     *
+     * @param name 名称
+     * @return {@link AjaxResult}
+     */
     @PostMapping("/deletePic")
     public AjaxResult deletePic(@RequestBody String name){
         System.out.println(name);
         return success(myDataMgtService.deleteOnePic(name));
     }
 
+    /**
+     * 创建图像文本
+     *
+     * @param params params
+     * @return {@link AjaxResult}
+     */
     @Log(title = "动态管理-创建新动态", businessType = BusinessType.INSERT)
     @PostMapping("/createImageText")
     public AjaxResult createImageText(@RequestBody Map<String,String> params){
@@ -48,15 +82,31 @@ public class DataMgtController extends BaseController {
         }
     }
 
-    //取消创建或删除动态
+    /**
+     * 取消图像文本
+     *
+     * @param id id
+     * @return {@link AjaxResult}
+     */
     @PostMapping("/cancelImageText")
     public AjaxResult cancelImageText(@RequestBody String id){
         myDataMgtService.cancelImageText(id);
         return success();
     }
 
+    /**
+     * 获取列表
+     *
+     * @param dto 到
+     * @return {@link AjaxResult}
+     */
     @PostMapping("/getList")
     public AjaxResult getList(@RequestBody DataMgtSearchDto dto){
         return success(myDataMgtService.getList(dto));
+    }
+
+    @PostMapping("/getImageTextById")
+    public AjaxResult getImageTextById(@RequestBody String id){
+        return success(myDataMgtService.getImageTextById(id));
     }
 }

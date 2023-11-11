@@ -1,5 +1,6 @@
 package com.ruoyi.myweb.service;
 
+import com.ruoyi.myweb.dto.DataMgtOneInfoDto;
 import com.ruoyi.myweb.dto.DataMgtSearchDto;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -51,4 +52,6 @@ public interface IMyDataMgtService {
 
 
     public List<Map<String, String>> getList(DataMgtSearchDto dto);
+
+    public DataMgtOneInfoDto getImageTextById(String id);
 }
