@@ -4,4 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.myweb.mapper.MyImagetextMapper">
 
+
+    <select id="getGeoData" resultType="hashMap">
+        select place, count(*) as num from my_imagetext group by place order by place;
+    </select>
 </mapper> 
