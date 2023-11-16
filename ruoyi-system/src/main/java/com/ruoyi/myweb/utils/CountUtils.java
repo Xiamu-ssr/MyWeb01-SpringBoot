@@ -36,4 +36,7 @@ public class CountUtils {
     public String getImageNum(){
         return subFunc(2);
     }
+    public String getMessageNum(){
+        return subFunc(3);
+    }
 }
