@@ -14,6 +14,7 @@ public class MyMessage {
     private String nameColor;
     private String nameEffect;
     private String text;
+    private String status;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 }

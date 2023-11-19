@@ -10,6 +10,7 @@ import com.ruoyi.myweb.mapper.MyImagesMapper;
 import com.ruoyi.myweb.mapper.MyImagetextMapper;
 import com.ruoyi.myweb.service.IMyDataMgtService;
 import com.ruoyi.myweb.utils.CountUtils;
+import com.ruoyi.myweb.vo.DataMgtSearchVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -92,9 +93,9 @@ public class MyDataMgtServiceImpl implements IMyDataMgtService{
     }
 
     @Override
-    public List<Map<String, String>> getList(DataMgtSearchDto dto) {
+    public List<DataMgtSearchVo> getList(DataMgtSearchDto dto) {
         System.out.println(dto);
-        List<Map<String, String>> res = new ArrayList<>();
+        List<DataMgtSearchVo> res = new ArrayList<>();
         LambdaQueryWrapper<MyImagetext> wrapper = new LambdaQueryWrapper<>();
         if (!dto.getPlace().isEmpty()){
             wrapper.in(MyImagetext::getPlace, dto.getPlace());
@@ -110,11 +111,11 @@ public class MyDataMgtServiceImpl implements IMyDataMgtService{
         }
         List<MyImagetext> list = myImagetextMapper.selectList(wrapper);
         list.forEach(l->{
-            Map<String, String> tmp = new HashMap<>();
-            tmp.put("id", l.getId());
-            tmp.put("place", l.getPlace());
-            tmp.put("date", l.getCreateTime().toString());
-            tmp.put("title", l.getTitle());
+            DataMgtSearchVo tmp = new DataMgtSearchVo();
+            tmp.setId(l.getId());
+            tmp.setPlace(l.getPlace());
+            tmp.setDate(l.getCreateTime());
+            tmp.setTitle(l.getTitle());
             res.add(tmp);
             System.out.println(tmp);
         });

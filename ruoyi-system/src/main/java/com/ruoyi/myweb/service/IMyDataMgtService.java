@@ -2,6 +2,7 @@ package com.ruoyi.myweb.service;
 
 import com.ruoyi.myweb.dto.DataMgtOneInfoDto;
 import com.ruoyi.myweb.dto.DataMgtSearchDto;
+import com.ruoyi.myweb.vo.DataMgtSearchVo;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -51,7 +52,7 @@ public interface IMyDataMgtService {
     public int cancelImageText(String id);
 
 
-    public List<Map<String, String>> getList(DataMgtSearchDto dto);
+    public List<DataMgtSearchVo> getList(DataMgtSearchDto dto);
 
     public DataMgtOneInfoDto getImageTextById(String id);
 }

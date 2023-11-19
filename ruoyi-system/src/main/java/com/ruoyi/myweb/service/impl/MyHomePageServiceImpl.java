@@ -1,10 +1,13 @@
 package com.ruoyi.myweb.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.ruoyi.myweb.domain.MyImagetext;
+import com.ruoyi.myweb.domain.MyMessage;
 import com.ruoyi.myweb.dto.HomePageDataDto;
 import com.ruoyi.myweb.mapper.MyImagesMapper;
 import com.ruoyi.myweb.mapper.MyImagetextMapper;
+import com.ruoyi.myweb.mapper.MyMessageMapper;
 import com.ruoyi.myweb.service.IMyHomePageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jmx.export.naming.IdentityNamingStrategy;
@@ -25,6 +28,9 @@ public class MyHomePageServiceImpl implements IMyHomePageService {
     MyImagetextMapper myImagetextMapper;
     @Autowired
     MyImagesMapper myImagesMapper;
+    @Autowired
+    MyMessageMapper myMessageMapper;
+
     @Override
     public HomePageDataDto getAllData() {
         HomePageDataDto res = new HomePageDataDto();
@@ -46,7 +52,7 @@ public class MyHomePageServiceImpl implements IMyHomePageService {
         //2.动态数量
         fourCards.put("1", myImagetextMapper.selectCount(new LambdaQueryWrapper<>()));
         //3.留言数量
-        fourCards.put("2", 12456);
+        fourCards.put("2", myMessageMapper.selectCount(new QueryWrapper<MyMessage>().select("distinct name")));
         //4.至今时间
         try {
             Date start = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2023-11-11 00:00:00");
