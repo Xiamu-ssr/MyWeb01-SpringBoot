@@ -12,6 +12,7 @@ import com.ruoyi.myweb.service.IMyDataMgtService;
 import com.ruoyi.myweb.utils.CountUtils;
 import com.ruoyi.myweb.vo.DataMgtSearchVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,7 +22,8 @@ import java.sql.Timestamp;
 
 @Service
 public class MyDataMgtServiceImpl implements IMyDataMgtService{
-    private static String picDir = "C:\\Users\\mumu\\Desktop\\images\\";
+    @Value("${myweb.image-dir}")
+    private String picDir;
 
     @Autowired
     private MyImagetextMapper myImagetextMapper;
