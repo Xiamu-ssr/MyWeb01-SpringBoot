@@ -25,9 +25,6 @@ import java.util.Map;
 @RequestMapping("/DataMgt")
 public class DataMgtController extends BaseController {
 
-    /**
-     * 我数据管理服务
-     */
     @Autowired
     private IMyDataMgtService myDataMgtService;
 

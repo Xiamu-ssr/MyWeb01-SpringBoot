@@ -40,7 +40,7 @@ public class MyHomePageServiceImpl implements IMyHomePageService {
         //获取各省动态数量
         HashMap<String, Integer> geo = new HashMap<>();
         List<Map<String, Object>> geoData = myImagetextMapper.getGeoData();
-        System.out.println(geoData);
+//        System.out.println(geoData);
         geoData.forEach(g->{
             geo.put(g.get("place").toString(), Integer.parseInt(g.get("num").toString()));
         });
@@ -64,6 +64,13 @@ public class MyHomePageServiceImpl implements IMyHomePageService {
             throw new RuntimeException(e);
         }
         res.setFourCards(fourCards);
+        //获取最新5条动态概览
+        LambdaQueryWrapper<MyImagetext> wrapper = new LambdaQueryWrapper<>();
+        wrapper.orderByDesc(MyImagetext::getCreateTime)
+                .last("limit 5");
+        List<MyImagetext> list = myImagetextMapper.selectList(wrapper);
+        res.setCurTimeLine(list);
+
         return res;
     }
 }
