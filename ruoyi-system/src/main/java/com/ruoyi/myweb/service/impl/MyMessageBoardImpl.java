@@ -22,11 +22,9 @@ public class MyMessageBoardImpl implements IMyMessageBoardService {
 
     @Autowired
     MyMessageMapper myMessageMapper;
-    @Autowired
-    private CountUtils countUtils;
     @Override
     public AjaxResult create(MyMessage myMessage) {
-        myMessage.setId(countUtils.getMessageNum());
+        myMessage.setId(CountUtils.getMessageNum());
         myMessage.setCreateTime(new Date());
         myMessageMapper.insert(myMessage);
         return AjaxResult.success();

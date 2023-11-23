@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/TimeLine")
 public class TimeLineController extends BaseController {
@@ -18,8 +20,8 @@ public class TimeLineController extends BaseController {
     IMyTimeLineService myTimeLineService;
 
     @PostMapping("/getListByPlace")
-    public AjaxResult getListByPlace(@RequestBody String place){
+    public AjaxResult getListByPlace(@RequestBody Map<String ,String> params){
 
-        return success(myTimeLineService.getListByPlace(place));
+        return success(myTimeLineService.getListByPlace(params.get("place")));
     }
 }

@@ -27,7 +27,7 @@ public class MyTimeLineServiceImpl implements IMyTimeLineService {
         List<DataMgtOneInfoDto> res = new ArrayList<>();
         LambdaQueryWrapper<MyImagetext> wrapper1 = new LambdaQueryWrapper<>();
         //只选择id列，提高传输效率
-        wrapper1.eq(MyImagetext::getPlace, place)
+        wrapper1.eq(!place.isEmpty(), MyImagetext::getPlace, place)
                 .orderByDesc(MyImagetext::getCreateTime)
                 .select(MyImagetext::getId);
         List<String> idList = myImagetextMapper.selectList(wrapper1).stream().map(MyImagetext::getId).collect(Collectors.toList());

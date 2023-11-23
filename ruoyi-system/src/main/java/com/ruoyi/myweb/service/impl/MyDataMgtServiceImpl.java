@@ -29,18 +29,16 @@ public class MyDataMgtServiceImpl implements IMyDataMgtService{
     private MyImagetextMapper myImagetextMapper;
     @Autowired
     private MyImagesMapper myImagesMapper;
-    @Autowired
-    private CountUtils countUtils;
 
     @Override
     public String getId(){
-        return countUtils.getImageTextNum();
+        return CountUtils.getImageTextNum();
     }
     @Override
     public String insertOnePic(MultipartFile file, String masterId) {
         //保存图片到磁盘
 //        String fileName = UUID.randomUUID().toString() + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf('.'));
-        String fileName = countUtils.getImageNum() + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf('.'));
+        String fileName = CountUtils.getImageNum() + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf('.'));
         String filePath = picDir+ fileName;
         File saveF = new File(filePath);
         System.out.println("save pic:"+filePath);
