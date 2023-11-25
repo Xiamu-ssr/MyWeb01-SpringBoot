@@ -75,6 +75,7 @@ public class CommonController
     @PostMapping("/upload")
     public AjaxResult uploadFile(MultipartFile file) throws Exception
     {
+        System.out.println(file);
         try
         {
             // 上传文件路径
