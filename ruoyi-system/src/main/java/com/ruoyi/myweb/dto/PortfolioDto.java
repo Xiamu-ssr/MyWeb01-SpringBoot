@@ -10,4 +10,5 @@ public class PortfolioDto {
     private String fileUrl;
     private String url;
     private List<String> tags;
+    private int orderNum;
 }

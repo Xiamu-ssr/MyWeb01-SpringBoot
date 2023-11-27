@@ -14,4 +14,6 @@ public interface IMyPortfolioService {
     List<PortfolioListVo> getList();
 
     AjaxResult deleteById(String id);
+
+    AjaxResult updateOrder(PortfolioListVo dto);
 }

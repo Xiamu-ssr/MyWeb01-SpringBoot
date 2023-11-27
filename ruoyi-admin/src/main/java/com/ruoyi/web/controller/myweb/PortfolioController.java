@@ -5,6 +5,7 @@ import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.myweb.dto.PortfolioDto;
 import com.ruoyi.myweb.service.IMyPortfolioService;
+import com.ruoyi.myweb.vo.PortfolioListVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,5 +28,10 @@ public class PortfolioController extends BaseController {
     @PostMapping("delete")
     public AjaxResult deleteById(@RequestBody String id){
         return myPortfolioService.deleteById(id);
+    }
+
+    @PostMapping("update")
+    public AjaxResult updateOrder(@RequestBody PortfolioListVo dto){
+        return myPortfolioService.updateOrder(dto);
     }
 }

@@ -15,4 +15,5 @@ public class MyPortfolio {
     private String fileUrl;
     private String tags;
     private String url;
+    private int orderNum;
 }

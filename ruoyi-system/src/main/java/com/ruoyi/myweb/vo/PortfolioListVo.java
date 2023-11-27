@@ -11,4 +11,5 @@ public class PortfolioListVo {
     private String fileUrl;
     private String url;
     private List<String> tags;
+    private int orderNum;
 }
