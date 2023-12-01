@@ -12,6 +12,7 @@ import com.ruoyi.myweb.service.IMyMessageBoardService;
 import com.ruoyi.myweb.utils.CountUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -61,7 +62,7 @@ public class MyMessageBoardImpl implements IMyMessageBoardService {
             wrapper.between(MyMessage::getCreateTime, dto.getDate().get(0), dto.getDate().get(1));
         }
         List<MyMessage> res = myMessageMapper.selectList(wrapper);
-        System.out.println(res);
+//        System.out.println(res);
         return res;
     }
 

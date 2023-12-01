@@ -1,6 +1,7 @@
 package com.ruoyi.myweb.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.ruoyi.common.utils.StringUtils;
 import com.ruoyi.common.utils.uuid.UUID;
 import com.ruoyi.myweb.domain.MyImages;
 import com.ruoyi.myweb.domain.MyImagetext;
@@ -94,20 +95,15 @@ public class MyDataMgtServiceImpl implements IMyDataMgtService{
 
     @Override
     public List<DataMgtSearchVo> getList(DataMgtSearchDto dto) {
-        System.out.println(dto);
+//        System.out.println(dto);
         List<DataMgtSearchVo> res = new ArrayList<>();
         LambdaQueryWrapper<MyImagetext> wrapper = new LambdaQueryWrapper<>();
-        if (!dto.getPlace().isEmpty()){
-            wrapper.in(MyImagetext::getPlace, dto.getPlace());
-        }
-        if (dto.getDate() != null){
+        wrapper.in(StringUtils.isNotNull(dto.getPlace()), MyImagetext::getPlace, dto.getPlace())
+
+                .like(StringUtils.isNotNull(dto.getTitle()), MyImagetext::getTitle, dto.getTitle())
+                .like(StringUtils.isNotNull(dto.getText()), MyImagetext::getText, dto.getText());
+        if (StringUtils.isNotNull(dto.getDate())){
             wrapper.between(MyImagetext::getCreateTime, dto.getDate().get(0), dto.getDate().get(1));
-        }
-        if (dto.getTitle() != null){
-            wrapper.like(MyImagetext::getTitle, dto.getTitle());
-        }
-        if (dto.getText() != null){
-            wrapper.like(MyImagetext::getText, dto.getText());
         }
         List<MyImagetext> list = myImagetextMapper.selectList(wrapper);
         list.forEach(l->{
@@ -117,7 +113,7 @@ public class MyDataMgtServiceImpl implements IMyDataMgtService{
             tmp.setDate(l.getCreateTime());
             tmp.setTitle(l.getTitle());
             res.add(tmp);
-            System.out.println(tmp);
+//            System.out.println(tmp);
         });
 
         return res;
