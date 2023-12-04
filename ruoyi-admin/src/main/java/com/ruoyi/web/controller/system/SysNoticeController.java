@@ -88,4 +88,9 @@ public class SysNoticeController extends BaseController
     {
         return toAjax(noticeService.deleteNoticeByIds(noticeIds));
     }
+
+    @GetMapping("/getList")
+    public AjaxResult getList(){
+        return success();
+    }
 }

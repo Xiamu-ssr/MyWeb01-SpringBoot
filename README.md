@@ -21,7 +21,7 @@
 5.  数据管理：对时光轴的动态的增删查、留言板的审核、作品集的增删改查
 
 ## 在线体验
-演示地址：http://www.qmeternity/index
+演示地址：http://www.qmeternity.cn/index
 
 ## 部署提示(前后端)
 

@@ -15,6 +15,7 @@ public class MyMessage {
     private String nameEffect;
     private String text;
     private String status;
+    private String link;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 }

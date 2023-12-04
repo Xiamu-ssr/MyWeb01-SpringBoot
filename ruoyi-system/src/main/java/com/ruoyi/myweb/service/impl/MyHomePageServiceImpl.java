@@ -4,10 +4,12 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.ruoyi.myweb.domain.MyImagetext;
 import com.ruoyi.myweb.domain.MyMessage;
+import com.ruoyi.myweb.domain.MyPortfolio;
 import com.ruoyi.myweb.dto.HomePageDataDto;
 import com.ruoyi.myweb.mapper.MyImagesMapper;
 import com.ruoyi.myweb.mapper.MyImagetextMapper;
 import com.ruoyi.myweb.mapper.MyMessageMapper;
+import com.ruoyi.myweb.mapper.MyPortfolioMapper;
 import com.ruoyi.myweb.service.IMyHomePageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jmx.export.naming.IdentityNamingStrategy;
@@ -30,13 +32,16 @@ public class MyHomePageServiceImpl implements IMyHomePageService {
     MyImagesMapper myImagesMapper;
     @Autowired
     MyMessageMapper myMessageMapper;
+    @Autowired
+    MyPortfolioMapper myPortfolioMapper;
 
     @Override
     public HomePageDataDto getAllData() {
         HomePageDataDto res = new HomePageDataDto();
-        res.setPrograms(5);
+        //获取项目数量
+        res.setPrograms(myPortfolioMapper.selectCount(new QueryWrapper<MyPortfolio>()));
+        //计算友链数量
         res.setPartners(2);
-
         //获取各省动态数量
         HashMap<String, Integer> geo = new HashMap<>();
         List<Map<String, Object>> geoData = myImagetextMapper.getGeoData();

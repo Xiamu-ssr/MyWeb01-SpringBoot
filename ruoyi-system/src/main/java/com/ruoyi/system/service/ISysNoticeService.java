@@ -1,6 +1,8 @@
 package com.ruoyi.system.service;
 
 import java.util.List;
+
+import com.ruoyi.myweb.vo.NoticeVo;
 import com.ruoyi.system.domain.SysNotice;
 
 /**
@@ -57,4 +59,11 @@ public interface ISysNoticeService
      * @return 结果
      */
     public int deleteNoticeByIds(Long[] noticeIds);
+
+    /**
+     * 获取详细信息列表
+     *
+     * @return {@link List}<{@link NoticeVo}>
+     */
+    public List<NoticeVo> getList();
 }

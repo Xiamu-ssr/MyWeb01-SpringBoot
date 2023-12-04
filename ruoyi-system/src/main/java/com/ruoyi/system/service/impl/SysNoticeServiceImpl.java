@@ -1,6 +1,8 @@
 package com.ruoyi.system.service.impl;
 
 import java.util.List;
+
+import com.ruoyi.myweb.vo.NoticeVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.system.domain.SysNotice;
@@ -88,5 +90,15 @@ public class SysNoticeServiceImpl implements ISysNoticeService
     public int deleteNoticeByIds(Long[] noticeIds)
     {
         return noticeMapper.deleteNoticeByIds(noticeIds);
+    }
+
+    /**
+     * 获取详细信息列表
+     *
+     * @return {@link List}<{@link NoticeVo}>
+     */
+    @Override
+    public List<NoticeVo> getList() {
+        return null;
     }
 }
