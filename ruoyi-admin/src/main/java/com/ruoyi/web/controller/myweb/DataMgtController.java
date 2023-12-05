@@ -6,6 +6,7 @@ import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.core.page.TableDataInfo;
 import com.ruoyi.common.enums.BusinessType;
+import com.ruoyi.myweb.domain.MyImagetext;
 import com.ruoyi.myweb.dto.DataMgtSearchDto;
 import com.ruoyi.myweb.service.IMyDataMgtService;
 import com.ruoyi.myweb.service.impl.MyDataMgtServiceImpl;
@@ -102,8 +103,9 @@ public class DataMgtController extends BaseController {
      */
     @GetMapping("/getList")
     public AjaxResult getList(DataMgtSearchDto dto){
+        System.out.println(dto);
         startPage();
-        List<DataMgtSearchVo> list = myDataMgtService.getList(dto);
+        List<MyImagetext> list = myDataMgtService.getList(dto);
         TableDataInfo dataTable = getDataTable(list);
         return success(dataTable);
     }

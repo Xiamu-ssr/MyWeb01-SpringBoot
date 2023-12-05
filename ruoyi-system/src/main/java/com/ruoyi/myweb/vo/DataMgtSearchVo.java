@@ -11,5 +11,5 @@ public class DataMgtSearchVo {
     private String title;
     private String place;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date date;
+    private Date createTime;
 }

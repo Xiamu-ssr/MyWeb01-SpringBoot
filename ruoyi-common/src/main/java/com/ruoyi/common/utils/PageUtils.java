@@ -21,8 +21,12 @@ public class PageUtils extends PageHelper
         Integer pageNum = pageDomain.getPageNum();
         Integer pageSize = pageDomain.getPageSize();
         String orderBy = SqlUtil.escapeOrderBySql(pageDomain.getOrderBy());
+        System.out.println(pageNum);
+        System.out.println(pageSize);
+        System.out.println(orderBy);
         Boolean reasonable = pageDomain.getReasonable();
         PageHelper.startPage(pageNum, pageSize, orderBy).setReasonable(reasonable);
+
     }
 
     /**

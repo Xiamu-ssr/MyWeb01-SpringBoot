@@ -1,5 +1,6 @@
 package com.ruoyi.myweb.service;
 
+import com.ruoyi.myweb.domain.MyImagetext;
 import com.ruoyi.myweb.dto.DataMgtOneInfoDto;
 import com.ruoyi.myweb.dto.DataMgtSearchDto;
 import com.ruoyi.myweb.vo.DataMgtSearchVo;
@@ -52,7 +53,7 @@ public interface IMyDataMgtService {
     public int cancelImageText(String id);
 
 
-    public List<DataMgtSearchVo> getList(DataMgtSearchDto dto);
+    public List<MyImagetext> getList(DataMgtSearchDto dto);
 
     public DataMgtOneInfoDto getImageTextById(String id);
 }

@@ -94,29 +94,17 @@ public class MyDataMgtServiceImpl implements IMyDataMgtService{
     }
 
     @Override
-    public List<DataMgtSearchVo> getList(DataMgtSearchDto dto) {
-//        System.out.println(dto);
-        List<DataMgtSearchVo> res = new ArrayList<>();
+    public List<MyImagetext> getList(DataMgtSearchDto dto) {
         LambdaQueryWrapper<MyImagetext> wrapper = new LambdaQueryWrapper<>();
-        wrapper.in(StringUtils.isNotNull(dto.getPlace()), MyImagetext::getPlace, dto.getPlace())
-
+        wrapper.select(MyImagetext::getId, MyImagetext::getTitle, MyImagetext::getPlace, MyImagetext::getCreateTime)
+                .in(StringUtils.isNotNull(dto.getPlace()), MyImagetext::getPlace, dto.getPlace())
                 .like(StringUtils.isNotNull(dto.getTitle()), MyImagetext::getTitle, dto.getTitle())
                 .like(StringUtils.isNotNull(dto.getText()), MyImagetext::getText, dto.getText());
         if (StringUtils.isNotNull(dto.getDate())){
             wrapper.between(MyImagetext::getCreateTime, dto.getDate().get(0), dto.getDate().get(1));
         }
-        List<MyImagetext> list = myImagetextMapper.selectList(wrapper);
-        list.forEach(l->{
-            DataMgtSearchVo tmp = new DataMgtSearchVo();
-            tmp.setId(l.getId());
-            tmp.setPlace(l.getPlace());
-            tmp.setDate(l.getCreateTime());
-            tmp.setTitle(l.getTitle());
-            res.add(tmp);
-//            System.out.println(tmp);
-        });
 
-        return res;
+        return myImagetextMapper.selectList(wrapper);
     }
 
     @Override
